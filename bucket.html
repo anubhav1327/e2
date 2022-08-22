@@ -1,25 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>products</title>
+    <style>
+        #container{
+            display:grid;
+            grid-template-columns:repeat(4,1fr);
+            gap:20px;
+        }
+        @media all and (min-width:80px) and (max-width:400px){
+            #container{
+                grid-template-columns:repeat(1,1fr);
+            }
+        }
+        body>h1{
+            color:crimson;
+            text-align:center;
+        }
+    </style>
+</head>
+<body>
+    <h1>Coffi - Coffee Shops</h1>
+    <div id="container">
 
-  <style></style>
-
-  <body>
-    <div id="total-div">
-      <h3 id="">
-        <!--Show bucket total here, do not add anything only Total value. Not even "Total - 1200Rs" but like this "1200" -->
-      </h3>
     </div>
-    <div id="">
-      <!--Show all coffee added to bucket here-->
-      <!-- add an remove button to each coffee so that you can remove that item from bucket, give the button HTML id as 'remove_coffee' -->
-    </div>
-
-    <!-- checkout link  -->
-  </body>
+</body>
+<script>
+    var cartdata;
+    if(localStorage.getItem("cartdata")===null){
+        cartdata=[];
+    }else{
+        cartdata=JSON.parse(localStorage.getItem("cartdata"));
+    }
+    var mensdata=[
+        {
+            image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQA7O6beL3i7p1Vn_YO4DlJ1KdiBkm6U7aJLqLcWo6nnM5wpjWCklgWSaIBCY557qwu_eU&usqp=CAU",
+            name:"Coffi Co",
+            price:"369",
+            strikedofprice:"2999"
+        },
+        {
+            image_url:"https://content.jdmagicbox.com/comp/mainpuri/i2/9999p5672.5672.110330194802.p3i2/catalogue/ravi-coffi-house-mainpuri-coffee-shops-g92gp-250.jpg",
+            name:"CardiffCoffi Co ",
+            price:"449",
+            strikedofprice:""
+        },
+        {
+            image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSjJ_YLKTdvanuwvUHhnhNJ7bB_Ae8tzipqKw&usqp=CAU",
+            name:"Coffi diffCoffi Co ",
+            price:"699",
+            strikedofprice:""
+        },
+        {
+            image_url:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4AGZd1wbNDW9rIPDPphCwuZ6sI0eRZqW7gENapvEvi9xac_zXCWPvSaZVcwOvUkSMYmM&usqp=CAU",
+            name:"Coffi Co Cardi ",
+            price:"599",
+            strikedofprice:""
+        },
+       
+    ];
+    mensdata.forEach(function(ele){
+     var box=document.createElement("div");
+     var img=document.createElement("img");
+     img.src=ele.image_url;
+     var name=document.createElement("p");
+     name.textContent=ele.name;
+     var price=document.createElement("p");
+     price.innerText=ele.price;
+     var cartbutton=document.createElement("button");
+     cartbutton.innerText="add to cart";
+     cartbutton.addEventListener("click",function(){
+         cartdata.push(ele);
+         localStorage.setItem("cartdata",JSON.stringify(cartdata));
+         console.log(cartdata);
+     });
+     box.append(img,name,price,cartbutton);
+     document.querySelector("#container").append(box);
+    });
+</script>
 </html>
